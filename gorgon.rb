@@ -10,7 +10,7 @@ class Gorgon < Formula
   depends_on "openssl" => :build
 
   def install
-    File.open("#{ENV['HOME']}/.bash_profile", "a") do |f|
+    File.open("#{ENV['HOME']}/.bashrc", "a") do |f|
       content = <<~EOS
           export GOENV_ROOT="$HOME/.goenv"
           export PATH="$GOENV_ROOT/bin:$PATH"

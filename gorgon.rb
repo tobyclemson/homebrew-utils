@@ -26,6 +26,15 @@ class Gorgon < Formula
 
     system "bash", "-c", "goenv install"
     system "bash", "-c", "rbenv install"
+
+    system "bash", "-c", "env | sort"
+
+    system "bash", "-c", "gem install bundler"
+    system "bash", "-c", "bundle install"
+
+    system "bash", "-c", "rake 'cli:build[0.1.0]'"
+
+    bin.install "build/bin/0.1.0_darwin_amd64/gorgon"
   end
 
   test do

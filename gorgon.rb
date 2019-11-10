@@ -6,6 +6,7 @@ class Gorgon < Formula
 
   depends_on "goenv" => [:build, "HEAD"]
   depends_on "rbenv" => :build
+  depends_on "ruby-build" => :build
 
   def install
     File.open("#{ENV['HOME']}/.bash_profile", "a") do |f|
@@ -20,7 +21,7 @@ class Gorgon < Formula
       f.write(content)
     end
 
-    ENV["GOROOT"] = `bash -c "goenv --prefix"`
+    ENV["GOROOT"] = `bash -c "goenv prefix"`
     ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version`}"
     ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
 

@@ -25,6 +25,8 @@ class Gorgon < Formula
     ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version | tr -d '\n'`}"
     ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
 
+    ENV["RUBY_CONFIGURE_OPTS"] = "--with-openssl-dir=#{`brew --prefix openssl`}"
+
     system "bash", "-c", "goenv install"
     system "bash", "-c", "rbenv install"
 

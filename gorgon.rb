@@ -44,7 +44,7 @@ class Gorgon < Formula
           bundle install
           
           env | sort
-          tree -L 4 .brew_home
+          tree -a -L 4 .brew_home
 
           rake 'cli:build[0.1.0]'
       EOS

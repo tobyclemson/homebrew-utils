@@ -28,7 +28,7 @@ class Gorgon < Formula
 
           export GOVERSION="$(cat .go-version | tr -d '\n')"
           export GOROOT="$(goenv prefix)"
-          export GOPATH="$PATH/go/$GOVERSION"
+          export GOPATH="$HOME/go/$GOVERSION"
           export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
     
           export PATH="$HOME/.rbenv/bin:$PATH"

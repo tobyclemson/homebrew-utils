@@ -24,7 +24,10 @@ class Gorgon < Formula
           export PATH="$HOME/.rbenv/bin:$PATH"
           eval "$(rbenv init - bash)"
 
-          export GOROOT=$(goenv prefix)
+          env | sort
+          echo "$(goenv prefix)"
+
+          export GOROOT="$(goenv prefix)"
           export GOPATH="$PATH/go/$(cat .go-version | tr -d '\n')"
           export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
     

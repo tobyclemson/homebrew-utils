@@ -22,21 +22,21 @@ class Gorgon < Formula
       f.write(content)
     end
 
-    ENV["GOROOT"] = `bash -c "goenv prefix"`
+    ENV["GOROOT"] = `bash -ic "goenv prefix"`
     ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version | tr -d '\n'`}"
     ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
 
     ENV["RUBY_CONFIGURE_OPTS"] = "--with-openssl-dir=#{prefix}/openssl"
 
-    system "bash", "-c", "goenv install"
-    system "bash", "-c", "rbenv install"
+    system "bash", "-ic", "goenv install"
+    system "bash", "-ic", "rbenv install"
 
-    system "bash", "-c", "env | sort"
+    system "bash", "-ic", "env | sort"
 
-    system "bash", "-c", "gem install bundler"
-    system "bash", "-c", "bundle install"
+    system "bash", "-ic", "gem install bundler"
+    system "bash", "-ic", "bundle install"
 
-    system "bash", "-c", "rake 'cli:build[0.1.0]'"
+    system "bash", "-ic", "rake 'cli:build[0.1.0]'"
 
     bin.install "build/bin/0.1.0_darwin_amd64/gorgon"
   end

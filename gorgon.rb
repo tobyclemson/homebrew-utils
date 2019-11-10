@@ -8,6 +8,7 @@ class Gorgon < Formula
   depends_on "rbenv" => :build
   depends_on "ruby-build" => :build
   depends_on "openssl" => :build
+  depends_on "tree" => :build
 
   def install
     File.open("build.sh", "w") do |f|
@@ -21,23 +22,25 @@ class Gorgon < Formula
           export PATH="$GOENV_ROOT/bin:$PATH"
           eval "$(goenv init -)"
 
-          export PATH="$HOME/.rbenv/bin:$PATH"
-          eval "$(rbenv init - bash)"
+          goenv install
 
           export GOVERSION="$(cat .go-version | tr -d '\n')"
-          export GOROOT="$GOENV_ROOT/versions/$GOVERSION"
+          export GOROOT="$(goenv prefix)"
           export GOPATH="$PATH/go/$GOVERSION"
           export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
     
+          export PATH="$HOME/.rbenv/bin:$PATH"
+          eval "$(rbenv init - bash)"
+
           export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"
 
-          goenv install
           rbenv install
-          
-          env | sort
-          
+
           gem install bundler
           bundle install
+          
+          env | sort
+          tree -L 4 .brew_home
 
           rake 'cli:build[0.1.0]'
       EOS

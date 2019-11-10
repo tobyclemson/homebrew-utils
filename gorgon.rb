@@ -20,6 +20,8 @@ class Gorgon < Formula
           
           export GOENV_ROOT="$HOME/.goenv"
           export PATH="$GOENV_ROOT/bin:$PATH"
+          
+          goenv init -
           eval "$(goenv init -)"
 
           goenv install
@@ -30,6 +32,8 @@ class Gorgon < Formula
           export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
     
           export PATH="$HOME/.rbenv/bin:$PATH"
+
+          rbenv init - bash
           eval "$(rbenv init - bash)"
 
           export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"

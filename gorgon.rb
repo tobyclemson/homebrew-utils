@@ -2,7 +2,7 @@ class Gorgon < Formula
   desc "Manage GitHub organizations or users."
   homepage "https://github.com/tobyclemson/gorgon"
   url "https://github.com/tobyclemson/gorgon/archive/0.3.0.tar.gz"
-  sha256 "54852b76ffbe50994dcd663a8cbb75d4f4a995da41e6ffa6309e30bdcab71032"
+  sha256 "6ee637acb1ae190ab9e17afccdadb071d8a5c8d2403e2a48b3357db5fd3f54ea"
 
   depends_on "goenv" => [:build, "HEAD"]
   depends_on "rbenv" => :build
@@ -11,34 +11,34 @@ class Gorgon < Formula
 
   def install
     File.open("build.sh", "w") do |f|
-      content = <<~EOS
-          #!/usr/bin/env bash
+      content = <<-EOS
+#!/usr/bin/env bash
 
-          set -e
-          set -o pipefail
-          
-          export GOENV_ROOT="$HOME/.goenv"
-          export PATH="$GOENV_ROOT/bin:$PATH"
-          eval "$(goenv init -)"
+set -e
+set -o pipefail
 
-          goenv install
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
 
-          export GOVERSION="$(cat .go-version | tr -d '\n')"
-          export GOROOT="$(goenv prefix)"
-          export GOPATH="$HOME/go/$GOVERSION"
-          export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
-    
-          export PATH="$HOME/.rbenv/bin:$PATH"
-          eval "$(rbenv init - bash)"
+goenv install
 
-          export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"
+export GOVERSION="$(cat .go-version | tr -d '\n')"
+export GOROOT="$(goenv prefix)"
+export GOPATH="$HOME/go/$GOVERSION"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
-          rbenv install
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - bash)"
 
-          gem install bundler
-          bundle install
-          
-          rake 'cli:build:darwin[#{version}]'
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"
+
+rbenv install
+
+gem install bundler
+bundle install
+
+rake 'cli:build:darwin[#{version}]'
       EOS
       f.write(content)
     end
@@ -51,6 +51,6 @@ class Gorgon < Formula
   end
 
   test do
-    system "false"
+    system "#{bin}/gorgon", 'version'
   end
 end

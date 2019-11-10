@@ -7,6 +7,7 @@ class Gorgon < Formula
   depends_on "goenv" => [:build, "HEAD"]
   depends_on "rbenv" => :build
   depends_on "ruby-build" => :build
+  depends_on "openssl" => :build
 
   def install
     File.open("#{ENV['HOME']}/.bash_profile", "a") do |f|
@@ -25,7 +26,7 @@ class Gorgon < Formula
     ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version | tr -d '\n'`}"
     ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
 
-    ENV["RUBY_CONFIGURE_OPTS"] = "--with-openssl-dir=#{`brew --prefix openssl`}"
+    ENV["RUBY_CONFIGURE_OPTS"] = "--with-openssl-dir=#{prefix}/openssl"
 
     system "bash", "-c", "goenv install"
     system "bash", "-c", "rbenv install"

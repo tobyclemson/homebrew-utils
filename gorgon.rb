@@ -43,7 +43,7 @@ class Gorgon < Formula
       f.write(content)
     end
 
-    FileUtils.chmod(0644, "build.sh")
+    FileUtils.chmod(0755, "build.sh")
 
     system "./build.sh"
 

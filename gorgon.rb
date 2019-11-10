@@ -10,33 +10,42 @@ class Gorgon < Formula
   depends_on "openssl" => :build
 
   def install
-    File.open("#{ENV['HOME']}/.bashrc", "a") do |f|
+    File.open("build.sh", "w") do |f|
       content = <<~EOS
+          #!/usr/bin/env bash
+
+          set -e
+          set -o pipefail
+          
           export GOENV_ROOT="$HOME/.goenv"
           export PATH="$GOENV_ROOT/bin:$PATH"
           eval "$(goenv init -)"
 
           export PATH="$HOME/.rbenv/bin:$PATH"
           eval "$(rbenv init - bash)"
+
+          export GOROOT=$(goenv prefix)
+          export GOPATH="$PATH/go/$(cat .go-version | tr -d '\n')"
+          export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+    
+          export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"
+
+          goenv install
+          rbenv install
+          
+          env | sort
+          
+          gem install bundler
+          bundle install
+
+          rake 'cli:build[0.1.0]'
       EOS
       f.write(content)
     end
 
-    ENV["GOROOT"] = `bash -ic "goenv prefix"`
-    ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version | tr -d '\n'`}"
-    ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
+    FileUtils.chmod(0644, "build.sh")
 
-    ENV["RUBY_CONFIGURE_OPTS"] = "--with-openssl-dir=#{prefix}/openssl"
-
-    system "bash", "-ic", "goenv install"
-    system "bash", "-ic", "rbenv install"
-
-    system "bash", "-ic", "env | sort"
-
-    system "bash", "-ic", "gem install bundler"
-    system "bash", "-ic", "bundle install"
-
-    system "bash", "-ic", "rake 'cli:build[0.1.0]'"
+    system "./build.sh"
 
     bin.install "build/bin/0.1.0_darwin_amd64/gorgon"
   end

@@ -1,8 +1,8 @@
 class Gorgon < Formula
   desc "Manage GitHub organizations or users."
   homepage "https://github.com/tobyclemson/gorgon"
-  url "https://github.com/tobyclemson/gorgon/archive/0.1.0.tar.gz"
-  sha256 "4bf7a9aa69d41253f06c6d63497b86a903fa6d6ce21bc18ff55377da000903ba"
+  url "https://github.com/tobyclemson/gorgon/archive/0.2.0.tar.gz"
+  sha256 "4ac358a12aedf6d908db9748c890aec952493f3312e5b040c2b80524c3b77b80"
 
   depends_on "goenv" => [:build, "HEAD"]
   depends_on "rbenv" => :build
@@ -48,7 +48,7 @@ class Gorgon < Formula
           ls -la
 
           set +e
-          rake 'cli:build[0.1.0]'
+          rake 'cli:build[0.2.0]'
           set -e
 
           tree -L 4 -a .brew_home
@@ -61,7 +61,7 @@ class Gorgon < Formula
 
     system "./build.sh"
 
-    bin.install "build/bin/0.1.0_darwin_amd64/gorgon"
+    bin.install "build/bin/0.2.0_darwin_amd64/gorgon"
   end
 
   test do

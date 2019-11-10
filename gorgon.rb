@@ -24,11 +24,9 @@ class Gorgon < Formula
           export PATH="$HOME/.rbenv/bin:$PATH"
           eval "$(rbenv init - bash)"
 
-          env | sort
-          echo "$(goenv prefix)"
-
-          export GOROOT="$(goenv prefix)"
-          export GOPATH="$PATH/go/$(cat .go-version | tr -d '\n')"
+          export GOVERSION="$(cat .go-version | tr -d '\n')"
+          export GOROOT="$GOENV_ROOT/versions/$GOVERSION"
+          export GOPATH="$PATH/go/$GOVERSION"
           export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
     
           export RUBY_CONFIGURE_OPTS="--with-openssl-dir=#{prefix}/openssl"

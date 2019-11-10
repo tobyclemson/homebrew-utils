@@ -22,7 +22,7 @@ class Gorgon < Formula
     end
 
     ENV["GOROOT"] = `bash -c "goenv prefix"`
-    ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version`}"
+    ENV["GOPATH"] = "#{ENV['HOME']}/go/#{`cat .go-version | tr -d '\n'`}"
     ENV["PATH"] = "#{ENV['GOROOT']}/bin:#{ENV['GOPATH']}/bin:#{ENV['PATH']}"
 
     system "bash", "-c", "goenv install"

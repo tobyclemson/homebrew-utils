@@ -1,8 +1,8 @@
 class Gorgon < Formula
   desc "Manage GitHub organizations or users."
   homepage "https://github.com/tobyclemson/gorgon"
-  url "https://github.com/tobyclemson/gorgon/archive/0.13.0.tar.gz"
-  sha256 "d3138b0e42bd23fc60a36280cc2e2888996ae3e2fb64fff26df36b366bf25a05"
+  url "https://github.com/tobyclemson/gorgon/archive/0.18.0.tar.gz"
+  sha256 "e6a82ebfccc46a92082ab0dc43c537ca2fca6c80c72a938fedbf8f870aa4aa07"
 
   depends_on "goenv" => [:build, "HEAD"]
   depends_on "rbenv" => :build
